@@ -1,0 +1,4 @@
+server/users.json
+server/data.json
+server/backups/
+server/watchdog.log

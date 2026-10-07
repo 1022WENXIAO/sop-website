@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOP 管理助手 · Pro</title>
+<title>SOP 团队协作版</title>
 <style>
 :root {
   --bg: #14061f;
@@ -33,8 +33,6 @@ body {
 }
 ::-webkit-scrollbar { width:10px; }
 ::-webkit-scrollbar-thumb { background:rgba(192,132,252,.35); border-radius:8px; }
-::-webkit-scrollbar-track { background:transparent; }
-
 header {
   position: sticky; top:0; z-index:20;
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
@@ -42,161 +40,96 @@ header {
   padding:14px 28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
 }
 .brand { display:flex; align-items:center; gap:12px; }
-.brand .logo {
-  width:38px; height:38px; border-radius:12px; background:var(--grad);
-  display:grid; place-items:center; font-size:19px; box-shadow:0 4px 18px rgba(236,72,153,.45);
-}
+.brand .logo { width:38px; height:38px; border-radius:12px; background:var(--grad); display:grid; place-items:center; font-size:19px; box-shadow:0 4px 18px rgba(236,72,153,.45); }
 .brand h1 { font-size:18px; font-weight:700; letter-spacing:.5px; }
 .brand h1 em { font-style:normal; background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.hd-actions { display:flex; gap:8px; }
-.btn-ghost {
-  background:var(--surface); border:1px solid var(--border); color:var(--text);
-  padding:8px 16px; border-radius:10px; cursor:pointer; font-size:13px; transition:.2s;
-}
+.hd-actions { display:flex; gap:8px; align-items:center; }
+.hd-actions .who { font-size:13px; color:var(--text-dim); }
+.btn-ghost { background:var(--surface); border:1px solid var(--border); color:var(--text); padding:8px 16px; border-radius:10px; cursor:pointer; font-size:13px; transition:.2s; }
 .btn-ghost:hover { background:var(--surface-strong); transform:translateY(-1px); }
-
 .layout { display:flex; min-height:calc(100vh - 67px); max-width:1280px; margin:0 auto; width:100%; }
 aside { width:230px; flex-shrink:0; padding:20px 14px; border-right:1px solid var(--border); }
 aside h3 { font-size:12px; color:var(--text-dim); text-transform:uppercase; letter-spacing:1.5px; margin:0 10px 10px; }
 aside ul { list-style:none; }
-aside li {
-  padding:10px 14px; border-radius:12px; cursor:pointer; font-size:14px;
-  margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;
-  color:var(--text-dim); transition:.2s; border:1px solid transparent;
-}
+aside li { padding:10px 14px; border-radius:12px; cursor:pointer; font-size:14px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center; color:var(--text-dim); transition:.2s; border:1px solid transparent; }
 aside li:hover { background:var(--surface); color:var(--text); }
 aside li.active { background:var(--grad-soft); border-color:rgba(192,132,252,.35); color:#fff; font-weight:600; }
 aside li .count { font-size:12px; background:var(--surface-strong); padding:2px 9px; border-radius:99px; }
 .cat-add { display:flex; gap:6px; margin-top:12px; padding:0 6px; }
-.cat-add input {
-  flex:1; min-width:0; background:var(--surface); border:1px solid var(--border);
-  border-radius:10px; padding:8px 10px; color:var(--text); font-size:13px; outline:none; transition:.2s;
-}
+.cat-add input { flex:1; min-width:0; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:8px 10px; color:var(--text); font-size:13px; outline:none; transition:.2s; }
 .cat-add input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(192,132,252,.2); }
-.cat-add button {
-  width:36px; border-radius:10px; border:none; background:var(--grad); color:#fff;
-  font-size:16px; cursor:pointer; transition:.2s; flex-shrink:0;
-}
-.cat-add button:hover { filter:brightness(1.15); transform:scale(1.05); }
-
+.cat-add button { width:36px; border-radius:10px; border:none; background:var(--grad); color:#fff; font-size:16px; cursor:pointer; transition:.2s; flex-shrink:0; }
 main { flex:1; padding:24px 28px; min-width:0; }
-
 .toolbar { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
 .toolbar .search { position:relative; flex:1; min-width:220px; }
-.toolbar .search input {
-  width:100%; padding:11px 14px 11px 40px; border-radius:12px; font-size:14px;
-  background:var(--surface); border:1px solid var(--border); color:var(--text); outline:none; transition:.2s;
-}
+.toolbar .search input { width:100%; padding:11px 14px 11px 40px; border-radius:12px; font-size:14px; background:var(--surface); border:1px solid var(--border); color:var(--text); outline:none; transition:.2s; }
 .toolbar .search input::placeholder { color:var(--text-dim); }
 .toolbar .search input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(192,132,252,.2); }
 .toolbar .search::before { content:'🔍'; position:absolute; left:13px; top:50%; transform:translateY(-50%); font-size:14px; opacity:.6; }
-.toolbar select {
-  padding:11px 12px; border-radius:12px; background:var(--surface); border:1px solid var(--border);
-  color:var(--text); font-size:14px; outline:none; cursor:pointer;
-}
+.toolbar select { padding:11px 12px; border-radius:12px; background:var(--surface); border:1px solid var(--border); color:var(--text); font-size:14px; outline:none; cursor:pointer; }
 .toolbar select option { background:#241031; }
-.btn-primary {
-  background:var(--grad); color:#fff; border:none; padding:11px 22px; border-radius:12px;
-  cursor:pointer; font-size:14px; font-weight:600; transition:.2s;
-  box-shadow:0 4px 20px rgba(236,72,153,.4);
-}
+.btn-primary { background:var(--grad); color:#fff; border:none; padding:11px 22px; border-radius:12px; cursor:pointer; font-size:14px; font-weight:600; transition:.2s; box-shadow:0 4px 20px rgba(236,72,153,.4); }
 .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(236,72,153,.55); }
-
 .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:16px; }
-.card {
-  background:var(--surface); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-  border:1px solid var(--border); border-radius:var(--radius); padding:20px;
-  display:flex; flex-direction:column; gap:10px; transition:.25s; position:relative; overflow:hidden;
-}
+.card { background:var(--surface); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:var(--radius); padding:20px; display:flex; flex-direction:column; gap:10px; transition:.25s; position:relative; overflow:hidden; }
 .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--grad); opacity:.7; }
 .card:hover { transform:translateY(-4px); border-color:rgba(192,132,252,.45); box-shadow:0 12px 36px rgba(168,85,247,.25); }
 .card h4 { font-size:16px; cursor:pointer; line-height:1.4; }
 .card h4:hover { color:var(--accent); }
 .meta { display:flex; gap:8px; flex-wrap:wrap; font-size:12px; color:var(--text-dim); align-items:center; }
-.badge {
-  background:var(--grad-soft); border:1px solid rgba(192,132,252,.35);
-  padding:3px 10px; border-radius:99px; font-size:12px; color:#e9d5ff;
-}
+.badge { background:var(--grad-soft); border:1px solid rgba(192,132,252,.35); padding:3px 10px; border-radius:99px; font-size:12px; color:#e9d5ff; }
 .badge.pink { border-color:rgba(244,114,182,.4); color:#fbcfe8; }
 .card .desc { font-size:13px; color:var(--text-dim); line-height:1.6; max-height:64px; overflow:hidden; }
 .card .progress-mini { height:5px; background:rgba(255,255,255,.08); border-radius:4px; overflow:hidden; }
 .card .progress-mini > div { height:100%; background:var(--grad); border-radius:4px; transition:width .4s; }
 .card .steps-info { font-size:12px; color:var(--text-dim); }
 .card-actions { margin-top:auto; display:flex; gap:8px; padding-top:6px; }
-.card-actions button {
-  flex:1; padding:8px 0; border-radius:10px; border:1px solid var(--border);
-  background:transparent; color:var(--text-dim); cursor:pointer; font-size:13px; transition:.2s;
-}
+.card-actions button { flex:1; padding:8px 0; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text-dim); cursor:pointer; font-size:13px; transition:.2s; }
 .card-actions button:hover { background:var(--surface-strong); color:#fff; border-color:var(--accent); }
 .card-actions .del:hover { color:var(--danger); border-color:var(--danger); background:rgba(251,113,133,.1); }
-
 .detail { max-width:780px; margin:0 auto; }
-.detail-panel {
-  background:var(--surface); backdrop-filter:blur(12px); border:1px solid var(--border);
-  border-radius:20px; padding:32px; margin-top:14px;
-}
+.detail-panel { background:var(--surface); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:20px; padding:32px; margin-top:14px; }
 .detail-panel h2 { font-size:24px; margin-bottom:8px; background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; display:inline-block; }
 .detail-panel .meta { margin-bottom:18px; }
-.desc-box {
-  background:var(--grad-soft); border-left:3px solid var(--accent2);
-  padding:14px 18px; border-radius:0 12px 12px 0; margin-bottom:22px;
-  font-size:14px; line-height:1.7; color:var(--text); white-space:pre-wrap;
-}
+.desc-box { background:var(--grad-soft); border-left:3px solid var(--accent2); padding:14px 18px; border-radius:0 12px 12px 0; margin-bottom:22px; font-size:14px; line-height:1.7; white-space:pre-wrap; }
 .progress-wrap { margin-bottom:22px; }
 .progress-bar { height:9px; background:rgba(255,255,255,.08); border-radius:6px; overflow:hidden; }
-.progress-bar > div { height:100%; background:var(--grad); border-radius:6px; transition:width .4s; box-shadow:0 0 12px rgba(236,72,153,.6); }
+.progress-bar > div { height:100%; background:var(--grad); border-radius:6px; transition:width .4s; }
 .progress-label { font-size:12px; color:var(--text-dim); margin-bottom:8px; }
-.step {
-  display:flex; gap:12px; align-items:flex-start; padding:13px 10px;
-  border-bottom:1px solid rgba(255,255,255,.06); border-radius:10px; transition:.2s;
-}
+.step { display:flex; gap:12px; align-items:flex-start; padding:13px 10px; border-bottom:1px solid rgba(255,255,255,.06); border-radius:10px; transition:.2s; }
 .step:hover { background:var(--surface); }
 .step:last-child { border-bottom:none; }
 .step input[type=checkbox] { width:20px; height:20px; margin-top:2px; accent-color:#ec4899; cursor:pointer; flex-shrink:0; }
-.step .num {
-  width:26px; height:26px; border-radius:8px; background:var(--grad-soft);
-  border:1px solid rgba(192,132,252,.3); display:grid; place-items:center;
-  font-size:12px; font-weight:700; color:var(--accent); flex-shrink:0;
-}
+.step .num { width:26px; height:26px; border-radius:8px; background:var(--grad-soft); border:1px solid rgba(192,132,252,.3); display:grid; place-items:center; font-size:12px; font-weight:700; color:var(--accent); flex-shrink:0; }
 .step.done .num { background:rgba(52,211,153,.15); border-color:rgba(52,211,153,.4); color:var(--ok); }
 .step span.txt { font-size:14px; line-height:1.7; flex:1; }
 .step.done span.txt { text-decoration:line-through; color:var(--text-dim); opacity:.7; }
 .backlink { color:var(--accent); cursor:pointer; font-size:14px; display:inline-flex; align-items:center; gap:6px; transition:.2s; }
 .backlink:hover { color:var(--accent2); gap:9px; }
 .detail-actions { margin-top:22px; display:flex; gap:10px; }
-.detail-actions button {
-  flex:1; padding:11px; border-radius:12px; border:1px solid var(--border); background:var(--surface);
-  color:var(--text); cursor:pointer; font-size:14px; transition:.2s;
-}
+.detail-actions button { flex:1; padding:11px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; font-size:14px; transition:.2s; }
 .detail-actions button:hover { border-color:var(--accent); background:var(--surface-strong); }
-
-.modal-bg {
-  position:fixed; inset:0; background:rgba(10,3,17,.7); backdrop-filter:blur(6px);
-  display:flex; align-items:center; justify-content:center; z-index:50; padding:20px;
-  animation:fadeIn .2s ease;
-}
+.modal-bg { position:fixed; inset:0; background:rgba(10,3,17,.7); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; z-index:50; padding:20px; animation:fadeIn .2s ease; }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-.modal {
-  background:linear-gradient(160deg,#251038,#1a0928); border:1px solid rgba(192,132,252,.3);
-  border-radius:20px; padding:28px; width:100%; max-width:580px; max-height:90vh; overflow-y:auto;
-  animation:popIn .25s cubic-bezier(.34,1.4,.64,1); box-shadow:0 24px 80px rgba(168,85,247,.35);
-}
+.modal { background:linear-gradient(160deg,#251038,#1a0928); border:1px solid rgba(192,132,252,.3); border-radius:20px; padding:28px; width:100%; max-width:580px; max-height:90vh; overflow-y:auto; animation:popIn .25s cubic-bezier(.34,1.4,.64,1); box-shadow:0 24px 80px rgba(168,85,247,.35); }
 @keyframes popIn { from{transform:scale(.94);opacity:0} to{transform:scale(1);opacity:1} }
 .modal h3 { font-size:18px; margin-bottom:18px; background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; display:inline-block; }
 .modal label { display:block; font-size:13px; color:var(--text-dim); margin:14px 0 6px; }
-.modal input,.modal select,.modal textarea {
-  width:100%; padding:10px 12px; border-radius:11px; font-size:14px; font-family:inherit;
-  background:rgba(255,255,255,.06); border:1px solid var(--border); color:var(--text); outline:none; transition:.2s;
-}
+.modal input,.modal select,.modal textarea { width:100%; padding:10px 12px; border-radius:11px; font-size:14px; font-family:inherit; background:rgba(255,255,255,.06); border:1px solid var(--border); color:var(--text); outline:none; transition:.2s; }
 .modal input:focus,.modal select:focus,.modal textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(192,132,252,.18); }
 .modal select option { background:#251038; }
 .modal textarea { min-height:96px; resize:vertical; line-height:1.6; }
 .modal .btns { margin-top:22px; display:flex; justify-content:flex-end; gap:10px; }
 .modal .btns button { padding:10px 24px; border-radius:11px; border:none; cursor:pointer; font-size:14px; transition:.2s; }
 .btn-cancel { background:var(--surface-strong); color:var(--text-dim); }
-.btn-cancel:hover { color:#fff; }
 .btn-save { background:var(--grad); color:#fff; font-weight:600; box-shadow:0 4px 16px rgba(236,72,153,.4); }
-.btn-save:hover { filter:brightness(1.12); }
+.err-msg { color:var(--danger); font-size:13px; margin-top:12px; min-height:18px; }
+.login-wrap { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
+.login-card { background:linear-gradient(160deg,#251038,#1a0928); border:1px solid rgba(192,132,252,.3); border-radius:24px; padding:40px 36px; width:100%; max-width:400px; box-shadow:0 24px 80px rgba(168,85,247,.4); animation:popIn .3s ease; }
+.login-card .logo { width:56px; height:56px; border-radius:16px; background:var(--grad); display:grid; place-items:center; font-size:28px; margin:0 auto 16px; box-shadow:0 8px 28px rgba(236,72,153,.5); }
+.login-card h2 { text-align:center; font-size:20px; margin-bottom:6px; }
+.login-card .sub { text-align:center; font-size:13px; color:var(--text-dim); margin-bottom:24px; }
+.offline-banner { background:rgba(251,191,36,.12); border:1px solid rgba(251,191,36,.4); color:#fde68a; font-size:13px; padding:10px 16px; border-radius:12px; margin-bottom:16px; display:none; }
 .empty { text-align:center; padding:80px 0; color:var(--text-dim); }
 .empty .icon { font-size:52px; margin-bottom:14px; opacity:.7; }
 .hidden { display:none !important; }
@@ -204,15 +137,34 @@ main { flex:1; padding:24px 28px; min-width:0; }
 </style>
 </head>
 <body>
+
+<!-- 登录页 -->
+<div class="login-wrap" id="loginView">
+  <div class="login-card">
+    <div class="logo">📋</div>
+    <h2>SOP 团队协作版</h2>
+    <div class="sub">登录后与团队成员共享同一份数据</div>
+    <label>用户名</label>
+    <input id="loginUser" placeholder="如：admin" onkeydown="if(event.key==='Enter')document.getElementById('loginPass').focus()">
+    <label>密码</label>
+    <input id="loginPass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="err-msg" id="loginErr"></div>
+    <button class="btn-save" style="width:100%;padding:12px;border:none;border-radius:11px;cursor:pointer;font-size:15px" onclick="doLogin()">登 录</button>
+    <div style="font-size:12px;color:var(--text-dim);margin-top:16px;text-align:center">默认账号 admin / admin123 · 密码在 server/users.json 管理</div>
+  </div>
+</div>
+
+<!-- 主界面 -->
+<div id="appView" class="hidden">
 <header>
   <div class="brand">
     <div class="logo">📋</div>
-    <h1>SOP 管理 <em>助手 Pro</em></h1>
+    <h1>SOP 团队 <em>协作版</em></h1>
   </div>
   <div class="hd-actions">
-    <button class="btn-ghost" onclick="exportData()">⬇ 导出 JSON</button>
-    <button class="btn-ghost" onclick="document.getElementById('importFile').click()">⬆ 导入 JSON</button>
-    <input type="file" id="importFile" accept=".json" class="hidden" onchange="importData(this)">
+    <span class="who" id="whoami"></span>
+    <button class="btn-ghost" onclick="exportData()">⬇ 导出</button>
+    <button class="btn-ghost" onclick="logout()">退出登录</button>
   </div>
 </header>
 <div class="layout">
@@ -225,6 +177,7 @@ main { flex:1; padding:24px 28px; min-width:0; }
     </div>
   </aside>
   <main>
+    <div class="offline-banner" id="offlineBanner">⚠ 服务器连接失败，当前处于离线模式（数据仅保存在本机浏览器）</div>
     <div id="listView">
       <div class="toolbar">
         <div class="search"><input type="search" id="searchBox" placeholder="搜索 SOP 名称、说明…" oninput="renderList()"></div>
@@ -245,6 +198,7 @@ main { flex:1; padding:24px 28px; min-width:0; }
     <div id="detailView" class="detail hidden"></div>
   </main>
 </div>
+</div>
 
 <div class="modal-bg hidden" id="editorBg">
   <div class="modal">
@@ -262,7 +216,7 @@ main { flex:1; padding:24px 28px; min-width:0; }
     <label>说明</label>
     <textarea id="fDesc" placeholder="简要描述这个 SOP 的目的和适用范围…"></textarea>
     <label>操作步骤（每行一步）</label>
-    <textarea id="fSteps" placeholder="第一步：…&#10;第二步：…&#10;第三步：…"></textarea>
+    <textarea id="fSteps" placeholder="第一步：…&#10;第二步：…"></textarea>
     <div class="btns">
       <button class="btn-cancel" onclick="closeEditor()">取消</button>
       <button class="btn-save" onclick="saveSop()">保存</button>
@@ -271,21 +225,74 @@ main { flex:1; padding:24px 28px; min-width:0; }
 </div>
 
 <script>
+const API='/api';
 const LS_KEY='sop_data_v2';
-let data=load(); let currentCat='all'; let currentSopId=null;
-function load(){
-  try{ const d=JSON.parse(localStorage.getItem(LS_KEY)||localStorage.getItem('sop_data_v1'));
-    if(d&&Array.isArray(d.sops)){ if(!localStorage.getItem(LS_KEY))localStorage.setItem(LS_KEY,JSON.stringify(d)); return d; }
-  }catch(e){}
-  return { cats:['通用','运维','行政'], sops:[{
-    id:1, title:'示例：服务器重启流程', cat:'运维', status:'active',
-    desc:'生产服务器计划性重启的标准流程，需提前通知相关人员并按顺序操作，避免数据丢失。',
-    steps:['提前 24 小时在群里发布公告','备份关键数据','按顺序停止应用服务','重启服务器并等待就绪','启动应用服务并验证','更新运维日志'],
-    done:[0,1], updatedAt:Date.now() }] };
-}
-function save(){ localStorage.setItem(LS_KEY,JSON.stringify(data)); }
-function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+let data=null, token=sessionStorage.getItem('sop_token')||'', me=sessionStorage.getItem('sop_me')||'';
+let currentCat='all', currentSopId=null, online=false;
 const STATUS_TEXT={draft:'草稿',active:'启用中',archived:'已归档'};
+
+async function api(path,opts={}){
+  opts.headers=Object.assign({'Content-Type':'application/json'},token?{'Authorization':'Bearer '+token}:{},opts.headers||{});
+  const r=await fetch(API+path,opts);
+  if(r.status===401){ sessionStorage.clear(); showLogin(); throw new Error('unauthorized'); }
+  return r.json();
+}
+function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function saveLocal(){ localStorage.setItem(LS_KEY,JSON.stringify(data)); }
+
+async function boot(){
+  if(token){
+    try{
+      data=await api('/data');
+      online=true; enterApp(); return;
+    }catch(e){ if(e.message==='unauthorized')return; }
+  }
+  // 探测服务器是否在线
+  try{ await fetch('/api/health'); showLogin(); }
+  catch(e){
+    // 离线模式（直接双击打开 html 时）
+    try{ data=JSON.parse(localStorage.getItem(LS_KEY)); }catch(_){}
+    if(!data||!Array.isArray(data.sops)){
+      data={cats:['通用','运维'],sops:[]};
+    }
+    online=false; enterApp(true);
+  }
+}
+function showLogin(){
+  document.getElementById('loginView').classList.remove('hidden');
+  document.getElementById('appView').classList.add('hidden');
+}
+async function doLogin(){
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginErr');
+  err.textContent='';
+  try{
+    const r=await api('/login',{method:'POST',body:JSON.stringify({user:u,pass:p})});
+    if(!r.ok){ err.textContent=r.error||'登录失败'; return; }
+    token=r.token; me=r.name;
+    sessionStorage.setItem('sop_token',token);
+    sessionStorage.setItem('sop_me',me);
+    data=await api('/data'); online=true; enterApp();
+  }catch(e){ err.textContent='无法连接服务器'; }
+}
+function logout(){
+  token=''; sessionStorage.clear(); location.reload();
+}
+function enterApp(offline){
+  document.getElementById('loginView').classList.add('hidden');
+  document.getElementById('appView').classList.remove('hidden');
+  document.getElementById('whoami').textContent=online?('👤 '+me):'';
+  document.getElementById('offlineBanner').style.display=offline?'block':'none';
+  document.getElementById('exportData').onclick;
+  renderCats(); renderList();
+}
+async function persist(){
+  if(online){
+    try{ await api('/data',{method:'PUT',body:JSON.stringify(data)}); }
+    catch(e){ alert('保存失败：'+e.message); }
+  } else saveLocal();
+}
 
 function renderCats(){
   const ul=document.getElementById('catList');
@@ -294,12 +301,11 @@ function renderCats(){
     ul.innerHTML+=`<li class="${currentCat===c?'active':''}" onclick="setCat('${esc(c)}')">${esc(c)} <span class="count">${n}</span></li>`; });
 }
 function setCat(c){ currentCat=c; renderCats(); renderList(); showList(); }
-function addCategory(){
+async function addCategory(){
   const inp=document.getElementById('newCat'); const name=inp.value.trim();
   if(!name)return; if(data.cats.includes(name)){alert('分类已存在');return;}
-  data.cats.push(name); inp.value=''; save(); renderCats();
+  data.cats.push(name); inp.value=''; await persist(); renderCats();
 }
-
 function renderList(){
   const q=document.getElementById('searchBox').value.trim().toLowerCase();
   const st=document.getElementById('statusFilter').value;
@@ -315,14 +321,13 @@ function renderList(){
       <div class="meta"><span class="badge">${esc(s.cat||'未分类')}</span><span class="badge pink">${STATUS_TEXT[s.status]||''}</span><span>${new Date(s.updatedAt).toLocaleDateString()}</span></div>
       <div class="desc">${esc(s.desc)||'<i style="opacity:.5">暂无说明</i>'}</div>
       <div class="progress-mini"><div style="width:${pct}%"></div></div>
-      <div class="steps-info">${total?`${dn}/${total} 步已完成（${pct}%）`:'尚未添加步骤'}</div>
+      <div class="steps-info">${total?`${dn}/${total} 步已完成（${pct}%）`:'尚未添加步骤'}${s.updatedBy?' · 更新人：'+esc(s.updatedBy):''}</div>
       <div class="card-actions">
         <button onclick="showDetail(${s.id})">查看</button>
         <button onclick="openEditor(${s.id})">编辑</button>
         <button class="del" onclick="delSop(${s.id})">删除</button>
       </div></div>`;}).join('');
 }
-
 function showDetail(id){
   const s=data.sops.find(x=>x.id===id); if(!s)return; currentSopId=id;
   const steps=s.steps||[], done=new Set(s.done||[]);
@@ -331,7 +336,7 @@ function showDetail(id){
     <span class="backlink" onclick="showList()">← 返回列表</span>
     <div class="detail-panel">
       <h2>${esc(s.title)}</h2>
-      <div class="meta"><span class="badge">${esc(s.cat||'未分类')}</span><span class="badge pink">${STATUS_TEXT[s.status]||''}</span><span>更新于 ${new Date(s.updatedAt).toLocaleString()}</span></div>
+      <div class="meta"><span class="badge">${esc(s.cat||'未分类')}</span><span class="badge pink">${STATUS_TEXT[s.status]||''}</span><span>更新于 ${new Date(s.updatedAt).toLocaleString()}</span>${s.updatedBy?`<span>· ${esc(s.updatedBy)}</span>`:''}</div>
       ${s.desc?`<div class="desc-box">${esc(s.desc)}</div>`:''}
       ${steps.length?`
         <div class="progress-wrap">
@@ -357,12 +362,12 @@ function showList(){
   document.getElementById('listView').classList.remove('hidden');
   renderList();
 }
-function toggleStep(i){
+async function toggleStep(i){
   const s=data.sops.find(x=>x.id===currentSopId); s.done=s.done||[];
   const idx=s.done.indexOf(i); idx>=0?s.done.splice(idx,1):s.done.push(i);
-  s.updatedAt=Date.now(); save(); showDetail(currentSopId);
+  s.updatedAt=Date.now(); if(online)s.updatedBy=me||'';
+  await persist(); showDetail(currentSopId);
 }
-
 function openEditor(id){
   const bg=document.getElementById('editorBg'), sel=document.getElementById('fCat');
   sel.innerHTML=data.cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
@@ -386,39 +391,28 @@ function openEditor(id){
   bg.classList.remove('hidden');
 }
 function closeEditor(){ document.getElementById('editorBg').classList.add('hidden'); }
-function saveSop(){
+async function saveSop(){
   const title=document.getElementById('fTitle').value.trim();
   if(!title){alert('请填写 SOP 名称');return;}
   const bg=document.getElementById('editorBg');
   const editId=bg.dataset.editId?Number(bg.dataset.editId):null;
   const steps=document.getElementById('fSteps').value.split('\n').map(x=>x.trim()).filter(Boolean);
   const base={ title, cat:document.getElementById('fCat').value, status:document.getElementById('fStatus').value,
-    desc:document.getElementById('fDesc').value.trim(), steps, updatedAt:Date.now() };
+    desc:document.getElementById('fDesc').value.trim(), steps, updatedAt:Date.now(), updatedBy:online?(me||''):undefined };
   if(editId){ const s=data.sops.find(x=>x.id===editId); Object.assign(s,base); s.done=(s.done||[]).filter(i=>i<steps.length); }
   else data.sops.push(Object.assign({id:Date.now(),done:[]},base));
-  save(); closeEditor(); renderCats(); renderList(); showList();
+  await persist(); closeEditor(); renderCats(); renderList(); showList();
 }
-function delSop(id){
-  if(!confirm('确定删除这个 SOP 吗？此操作不可恢复。'))return;
-  data.sops=data.sops.filter(s=>s.id!==id); save(); renderCats(); renderList(); showList();
+async function delSop(id){
+  if(!confirm('确定删除这个 SOP 吗？此操作对全团队生效。'))return;
+  data.sops=data.sops.filter(s=>s.id!==id); await persist(); renderCats(); renderList(); showList();
 }
-
 function exportData(){
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
   a.download='sop-backup-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
 }
-function importData(input){
-  const f=input.files[0]; if(!f)return;
-  const r=new FileReader();
-  r.onload=()=>{ try{
-      const d=JSON.parse(r.result);
-      if(!d||!Array.isArray(d.sops)||!Array.isArray(d.cats))throw 0;
-      data=d; save(); renderCats(); renderList(); showList(); alert('导入成功！');
-    }catch(e){alert('文件格式不正确');} input.value=''; };
-  r.readAsText(f);
-}
-renderCats(); renderList();
+boot();
 </script>
 </body>
 </html>
